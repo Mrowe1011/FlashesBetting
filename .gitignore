@@ -8,3 +8,10 @@ node_modules
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+src/routes/stores/stores.js
+src/routes/stores/firebaseConfig.js
+.firebaserc
+.gitignore
+.npmrc
+public/_app/immutable/chunks/firebaseConfig-5ea37fb5.js
