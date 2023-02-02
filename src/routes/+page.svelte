@@ -1,32 +1,43 @@
 <script>
     import { getAuth, signOut, signInWithEmailAndPassword } from 'firebase/auth';
+    import { collection, doc, setDoc, getDoc, getFirestore } from "firebase/firestore"; 
     import {app} from './stores/firebaseConfig';
 
     const auth = getAuth(app);
     let username = ""
     let password = ""
     let currentUser
+    const db = getFirestore(app);
     function onSubmit(){
-
         signInWithEmailAndPassword(auth, username, password).catch((error) => {alert("Invalid Login: "+error)}).then(()=>{currentUser = auth.currentUser})
-        
     }
     function signout(){
         signOut(auth).then(() => {
         currentUser = auth.currentUser
-        console.log("you did it!")
         }).catch((error) => {
-        console.log("it broke :(", error)
+        alert(error)
         });
         
+    }
+    async function getPoints(){
+      const docRef = doc(db, "users" , currentUser.email);
+      const docSnap = await getDoc(docRef);
+      console.log(docSnap.data())
+      const profile = docSnap.data()
+      return profile
     }
 
 </script>
 
 
 {#if currentUser}
-    <h1>Hi {currentUser.email}</h1> 
-    <h2>Your</h2>
+    
+    {#await getPoints()}
+      <p>Loading</p>
+    {:then profile} 
+      <h1>Hi {profile.name}</h1> 
+      <h1>You have {profile.points} Points!</h1>
+    {/await}
     <button on:click={signout}>Signout</button>
     
     <section>

@@ -10,11 +10,11 @@
     let Fname = ""
     let points = 100
     let picture = Math.floor(Math.random() * 5);
-    function onSubmit(){
-        createUserWithEmailAndPassword(auth, email, password).catch((error) => {alert(error + "broke")})
-        const db = getFirestore();
+    const db = getFirestore(app);
+    async function onSubmit(){
+        createUserWithEmailAndPassword(auth, email, password).catch((error) => {alert(error)})
         console.log(db)
-        setDoc(doc(db, "users", email), {
+        await setDoc(doc(db, "users", email), {
           name: Fname,
           email: email,
           points: points,
