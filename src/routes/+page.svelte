@@ -70,6 +70,7 @@
     </div>
       <button class="stuff" id="submit" type="submit">Login</button>
     </form>
+    <a style="text-align:center; color:white" href="/forgotAccount">Forgot Password</a>
     <p style="text-align:center;">New Here?</p>
     <a href="/createAccount" id="create"> Create an account!</a>
 
