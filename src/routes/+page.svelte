@@ -1,55 +1,18 @@
 <script>
-    import { getAuth, signOut, signInWithEmailAndPassword } from 'firebase/auth';
-    import { collection, doc, setDoc, getDoc, getFirestore } from "firebase/firestore"; 
-	  import Login from './login.svelte';
-    import {app} from './stores/firebaseConfig';
-
-    const auth = getAuth(app);
+import { onSubmit } from "./stores/firebaseConfig";
     let username = ""
     let password = ""
-    let currentUser
-    const db = getFirestore(app);
-    function onSubmit(){
-        signInWithEmailAndPassword(auth, username, password).catch((error) => {alert("Invalid Login: "+error)}).then(()=>{currentUser = auth.currentUser})
-    }
-    function signout(){
-        signOut(auth).then(() => {
-        currentUser = auth.currentUser
-        }).catch((error) => {
-        alert(error)
-        });
-        
-    }
-    async function getPoints(){
-      const docRef = doc(db, "users" , currentUser.email);
-      const docSnap = await getDoc(docRef);
-      console.log(docSnap.data())
-      const profile = docSnap.data()
-      return profile
-    }
+
 
 </script>
 
+
+
 <div class="everything">
-{#if currentUser}
-    
-    {#await getPoints()}
-      <p>Loading</p>
-    {:then profile} 
-      <h1>Hi {profile.name}</h1> 
-      <h1>You have {profile.points} Points!</h1>
-    {/await}
-    <button on:click={signout}>Signout</button>
-    
-    <section>
-
-  </section>
-
-{:else}
 <div class="login">
   <h1 id="welcome">Welcome</h1>
   <hr>
-  <form on:submit|preventDefault={onSubmit}>
+  <form on:submit|preventDefault={onSubmit(username,password)}>
       <div>
           <label class="stuff" for="name">Email</label><br>
           <input bind:value={username}
@@ -77,8 +40,9 @@
     <br>
     <br>
   </div>
-{/if}
 </div>
+
+
 <style>
   * {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
