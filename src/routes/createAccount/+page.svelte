@@ -7,6 +7,7 @@
     const auth = getAuth(app);
     let email = ""
     let password = ""
+    let password2 = ""
     let Fname = ""
     let points = 100
     let picture = Math.floor(Math.random() * 5);
@@ -54,6 +55,27 @@
         id="password"
         name="password"
       />
+      <div>
+      <label for="name">Retype Password</label>
+      <input bind:value={password2}
+        type="password"
+        id="password2"
+        name="password2"
+      />
+    </div>
   </div>
+    {#if password != ""}
+    {#if password2 === password}
+    {#if password === password2}
     <button type="submit">Submit</button>
+    {:else}
+    <br>
+    {/if}
+
+  {:else}
+  <p>Passwords do not match!</p>
+  {/if}
+  {:else}
+  <p></p>
+  {/if}
   </form>
