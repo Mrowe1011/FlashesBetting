@@ -1,5 +1,5 @@
 <script>
-    import {app} from '../stores/firebaseConfig';
+    import {app} from '../stores/stores';
     import { getAuth, createUserWithEmailAndPassword  } from 'firebase/auth';
     import { getDatabase, ref, set } from "firebase/database";
     import { doc, setDoc, getFirestore } from "firebase/firestore"; 

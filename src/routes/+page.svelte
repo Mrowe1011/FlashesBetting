@@ -1,5 +1,5 @@
 <script>
-import { onSubmit } from "./stores/firebaseConfig";
+import { onSubmit } from "./stores/stores";
     let username = ""
     let password = ""
 

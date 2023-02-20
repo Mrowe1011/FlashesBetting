@@ -1,6 +1,6 @@
 <script>
 import { onAuthStateChanged } from 'firebase/auth';
-import {auth} from '../stores/firebaseConfig'
+import {auth} from '../stores/stores'
 let currentUser
 onAuthStateChanged(auth, (user) => {
   if (user) {

@@ -1,7 +1,6 @@
 <script>
-import { signout } from "../stores/firebaseConfig"
+import { signout , auth} from '../stores/stores'
 import { onAuthStateChanged } from 'firebase/auth';
-import {auth} from '../stores/firebaseConfig'
 let currentUser
 onAuthStateChanged(auth, (user) => {
   if (user) {
