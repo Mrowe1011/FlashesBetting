@@ -12,7 +12,7 @@ export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 let currentUser;
-
+let error;
 export function onSubmit(username, password) {
 	signInWithEmailAndPassword(auth, username, password)
 		.catch((error) => {
@@ -21,7 +21,9 @@ export function onSubmit(username, password) {
 		.then(() => {
 			setPersistence(auth, browserSessionPersistence);
 			currentUser = auth.currentUser;
-			location.href = '/homePage'; // Svelte normally appends .html to location hrefs but doesn't for this because its a js file. Remove the .html while your developing otherwise it doesn't work
+			if (!error) {
+				location.href = '/homePage'; // Svelte normally appends .html to location hrefs but doesn't for this because its a js file. Remove the .html while your developing otherwise it doesn't work
+			}
 		});
 }
 

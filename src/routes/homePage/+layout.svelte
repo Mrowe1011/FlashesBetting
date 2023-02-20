@@ -14,7 +14,7 @@ onAuthStateChanged(auth, (user) => {
 <nav>
     <img id="title" alt="">
     <div class="navbar">
-    <a href="/">Active Bets</a>
+    <a href="/homePage/activeBets">Active Bets</a>
     <a href="/">Calendar</a>
     <a href="/">Leaderboard</a>
     <a href="/">Kent Game Schedule</a>
