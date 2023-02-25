@@ -1,5 +1,5 @@
 <script>
-import { signout , auth} from '../stores/stores'
+import { signout , auth} from '../../stores/stores'
 import { onAuthStateChanged } from 'firebase/auth';
 import "../app.css";
 let currentUser
