@@ -18,9 +18,10 @@
 
 {#await getdata() then games}
 	<div class="container">
-		{#each games as { startDate, image1, team1 }, i}
+		{#each games as { Description, startDate, image1, team1 }, i}
 			<div id={i} class="games">
 				<div class="teams">
+					<h1>{Description}, {startDate}</h1>
 					<div class="single">
 						<img src={image1} alt="" />
 						<h1>
@@ -33,9 +34,6 @@
 						<h1>
 							{team2}
 						</h1>
-					</div>
-					<div class="date">
-						<p>{startDate}</p>
 					</div>
 				</div>
 			</div>
