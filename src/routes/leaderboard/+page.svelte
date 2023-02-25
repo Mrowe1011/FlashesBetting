@@ -1,6 +1,7 @@
 <script>
 import { signout , auth} from '../stores/stores'
 import { onAuthStateChanged } from 'firebase/auth';
+import "../app.css";
 let currentUser
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -37,25 +38,92 @@ onAuthStateChanged(auth, (user) => {
     </p>
 </div>
 
-<div style="padding-left: 400rm;">
-    <table>
-        <tr>
-          <th>Place</th>
-          <th>Score</th>
-          <th>Player</th>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>300</td>
-          <td>Matt Lawton</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>150</td>
-          <td>Ben Goodhart</td>
-        </tr>
-      </table>    
-</div>
+<!-- component -->
+<div class="flex flex-col">
+    <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full">
+            <thead class="bg-white border-b">
+              <tr>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Place
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  First
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Last
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  Score
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-gray-100 border-b">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  Mark
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  Otto
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  879,721
+                </td>
+              </tr>
+              <tr class="bg-white border-b">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  Jacob
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  Dillan
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  500,000
+                </td>
+              </tr>
+              <tr class="bg-gray-100 border-b">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  Mark
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  Twen
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  450,000
+                </td>
+              </tr>    
+              <tr class="bg-white border-b">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">4</td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  Bob
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  Dillan
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  300,000
+                </td>
+              </tr>
+              <tr class="bg-gray-100 border-b">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">5</td>
+                <td colspan="2" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
+                  Larry the Bird
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  123,756
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <style>
 
