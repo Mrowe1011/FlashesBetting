@@ -1,7 +1,7 @@
 <script>
 import { signout , auth} from '../../stores/stores'
 import { onAuthStateChanged } from 'firebase/auth';
-import "../app.css";
+import "../../app.css";
 let currentUser
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -9,25 +9,6 @@ onAuthStateChanged(auth, (user) => {
   } 
 });
 </script>
-
-{#if currentUser}
-<nav>
-    <img id="title" alt="">
-    <div class="navbar">
-    <a href="/homePage/activeBets">Active Bets</a>
-    <a href="/">Calendar</a>
-    <a href="/leaderboard">Leaderboard</a>
-    <a href="/">Kent Game Schedule</a>
-    </div>
-    <button class="Signout" on:click={signout}>Signout</button>
-</nav>
-
-<slot>
-</slot>
-{:else}
-<h1>You got signed out</h1>
-<a href="/" style="color: black;">sign back in here</a>
-{/if}
 
 
 <div style="padding-left: 35px; padding-top: 30px; padding-bottom: 30px;">
