@@ -1,6 +1,8 @@
 <script>
 import { signout , auth} from '../../stores/stores'
 import { onAuthStateChanged } from 'firebase/auth';
+import { db } from "../../stores/stores";
+import {getDocs, collection } from "firebase/firestore"
 import "../../app.css";
 let currentUser
 onAuthStateChanged(auth, (user) => {
@@ -8,6 +10,18 @@ onAuthStateChanged(auth, (user) => {
     currentUser = user
   } 
 });
+
+let leaderboardPlayers = [];
+
+async function getdata(){
+
+let querySnapshot = await getDocs(collection(db, "users"))
+querySnapshot.forEach((doc) => {
+  leaderboardPlayers.push(doc.data())
+});
+
+return leaderboardPlayers;
+}
 </script>
 
 
@@ -20,12 +34,14 @@ onAuthStateChanged(auth, (user) => {
 </div>
 
 <!-- Table Component  -->
+
 <div class="flex flex-col">
     <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
       <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
         <div class="overflow-hidden">
           <table class="min-w-full">
             <thead class="bg-white border-b">
+
               <tr>
                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                   Place
@@ -42,69 +58,29 @@ onAuthStateChanged(auth, (user) => {
               </tr>
             </thead>
             <tbody>
+              {#await getdata() then users} 
+              {#each users as { player1first, player1last, player1Score}, i}
               <tr class="bg-gray-100 border-b">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  Mark
+                  {player1first}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  Otto
+                  {player1last}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  879,721
+                  {player1Score}
                 </td>
               </tr>
-              <tr class="bg-white border-b">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  Jacob
-                </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  Dillan
-                </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  500,000
-                </td>
-              </tr>
-              <tr class="bg-gray-100 border-b">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  Mark
-                </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  Twen
-                </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  450,000
-                </td>
-              </tr>    
-              <tr class="bg-white border-b">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">4</td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  Bob
-                </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  Dillan
-                </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  300,000
-                </td>
-              </tr>
-              <tr class="bg-gray-100 border-b">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">5</td>
-                <td colspan="2" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
-                  Larry the Bird
-                </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  123,756
-                </td>
-              </tr>
+              {/each}
+              {/await}
             </tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
+  
 
 <style>
 
