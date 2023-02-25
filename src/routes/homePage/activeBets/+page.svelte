@@ -11,48 +11,62 @@
 
 		return games;
 	}
+	let image2 =
+		'https://dxbhsrqyrr690.cloudfront.net/sidearm.nextgen.sites/kentstatesports.com/images/responsive_2020/nav_main.svg';
+	let team2 = 'Kent State';
 </script>
 
 {#await getdata() then games}
-	{#each games as { date, gameID, image1, team1, image2, team2 }, i}
-		<div id={gameID} class="container">
-			<div class="games">
+	<div class="container">
+		{#each games as { startDate, image1, team1 }, i}
+			<div id={i} class="games">
 				<div class="teams">
-					<div>
+					<div class="single">
 						<img src={image1} alt="" />
 						<h1>
 							{team1}
 						</h1>
 					</div>
 					<hr />
-					<div>
+					<div class="single">
 						<img src={image2} alt="" />
 						<h1>
 							{team2}
 						</h1>
 					</div>
 					<div class="date">
-						<h1>{date}</h1>
+						<p>{startDate}</p>
 					</div>
 				</div>
 			</div>
-		</div>
-	{/each}
+		{/each}
+	</div>
 {/await}
 
 <style>
 	.container {
-		width: 80%;
-		height: 20%;
-		background-color: aqua;
+		display: flex;
+		flex-direction: column;
 	}
 	.games {
 		font-size: 1em;
+		display: flex;
+		justify-content: space-around;
 	}
 	.teams {
-		float: left;
+		display: flex;
+		flex-direction: column;
+		padding: 4%;
+		width: 60%;
 	}
-	.date {
-		float: right;
+	.single {
+		display: flex;
+		justify-content: flex-start;
+	}
+	img {
+		width: 80px;
+	}
+	hr {
+		width: 100%;
 	}
 </style>
