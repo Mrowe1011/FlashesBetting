@@ -50,7 +50,6 @@ import { onSubmit } from "./stores/stores";
 
   .everything {
     position: absolute;
-
     width: 100vw;
     height: 100vh;
     display: flex;

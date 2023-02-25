@@ -19,7 +19,12 @@ onAuthStateChanged(auth, (user) => {
     <a href="/">Leaderboard</a>
     <a href="/">Kent Game Schedule</a>
     </div>
-    <button class="Signout" on:click={signout}>Signout</button>
+    <div class="right">
+      <p>{currentUser.email}</p>
+      <a href="/homePage/accountSettings"> Settings</a>
+      <button class="Signout" on:click={signout}>Signout</button>
+    </div>
+
 
 </nav>
 
@@ -41,7 +46,9 @@ onAuthStateChanged(auth, (user) => {
     background-position: center;
 }
 
-
+.right {
+  padding-right: 2%;
+}
 .Signout {
     float: right;
     display: flex;
@@ -61,11 +68,14 @@ nav {
   align-items: center;
   width: 100%;
 }
-a {
+a,p,button {
     color: white;
     text-decoration: none;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 1.2em;
     margin-left: 6%;
+    background-color: #2d425e00;
+    border: 0;
+    padding: 0;
 }
 </style>
