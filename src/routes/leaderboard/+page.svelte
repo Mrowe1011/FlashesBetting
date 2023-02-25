@@ -30,7 +30,7 @@ onAuthStateChanged(auth, (user) => {
 {/if}
 
 
-<div>
+<div style="padding-left: 35px; padding-top: 30px; padding-bottom: 30px;">
     <h1>Here goes the leaderboard...</h1>
 
     <p>This is where all of the drecriptive text will go. This data right now is dummy data and 
@@ -38,7 +38,7 @@ onAuthStateChanged(auth, (user) => {
     </p>
 </div>
 
-<!-- component -->
+<!-- Table Component  -->
 <div class="flex flex-col">
     <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
       <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
