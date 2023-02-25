@@ -32,7 +32,9 @@ onAuthStateChanged(auth, (user) => {
 <div>
     <h1>Here goes the leaderboard...</h1>
 
-    <p>This is where all of the drecriptive text will go </p>
+    <p>This is where all of the drecriptive text will go. This data right now is dummy data and 
+        isn't hooked up to the backend. 
+    </p>
 </div>
 
 <div style="padding-left: 400rm;">
