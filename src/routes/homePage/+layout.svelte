@@ -16,7 +16,7 @@ onAuthStateChanged(auth, (user) => {
     <div class="navbar">
     <a href="/homePage/activeBets">Active Bets</a>
     <a href="/">Calendar</a>
-    <a href="/">Leaderboard</a>
+    <a href="/homePage/leaderboard">Leaderboard</a>
     <a href="/">Kent Game Schedule</a>
     </div>
     <div class="right">
