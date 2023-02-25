@@ -7,9 +7,8 @@ onAuthStateChanged(auth, (user) => {
     currentUser = user
   } 
 });
-
-
 </script>
+
 {#if currentUser}
 <nav>
     <img id="title" alt="">
@@ -20,20 +19,25 @@ onAuthStateChanged(auth, (user) => {
     <a href="/">Kent Game Schedule</a>
     </div>
     <button class="Signout" on:click={signout}>Signout</button>
-
 </nav>
 
 <slot>
-
 </slot>
 {:else}
 <h1>You got signed out</h1>
 <a href="/" style="color: black;">sign back in here</a>
 {/if}
 
+
+<div>
+    <h1>Here goes the template...</h1>
+
+    <p>This is where all of the drecriptive text will go </p>
+</div>
+
 <style>
-        
-    #title {
+          
+#title {
     height: 90px;
     width: 150px;
     background-image: url(../images/spinning-fish.gif);
