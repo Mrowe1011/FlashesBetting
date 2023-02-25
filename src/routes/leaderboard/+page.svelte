@@ -30,12 +30,48 @@ onAuthStateChanged(auth, (user) => {
 
 
 <div>
-    <h1>Here goes the template...</h1>
+    <h1>Here goes the leaderboard...</h1>
 
     <p>This is where all of the drecriptive text will go </p>
 </div>
 
+<div style="padding-left: 400rm;">
+    <table>
+        <tr>
+          <th>Place</th>
+          <th>Score</th>
+          <th>Player</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>300</td>
+          <td>Matt Lawton</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>150</td>
+          <td>Ben Goodhart</td>
+        </tr>
+      </table>    
+</div>
+
 <style>
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
           
 #title {
     height: 90px;
