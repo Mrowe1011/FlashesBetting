@@ -1,7 +1,7 @@
 <script>
 	import { signout, auth } from '../../stores/stores';
 	import { onAuthStateChanged } from 'firebase/auth';
-	import '../../app.css';
+	//import '../../app.css';
 	let currentUser;
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
