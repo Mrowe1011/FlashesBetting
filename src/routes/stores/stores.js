@@ -7,12 +7,18 @@ import {
 	browserSessionPersistence,
 	signOut
 } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { firebaseConfig } from './firebaseConfig';
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
-let currentUser;
+export let currentUser;
 
+onAuthStateChanged(auth, (user) => {
+	if (user) {
+		currentUser = user;
+	}
+});
 export function onSubmit(username, password) {
 	signInWithEmailAndPassword(auth, username, password)
 		.catch((error) => {

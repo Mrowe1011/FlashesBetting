@@ -24,13 +24,13 @@ return leaderboardPlayers;
 }
 </script>
 
-
 <div style="padding-left: 35px; padding-top: 30px; padding-bottom: 30px;">
-    <h1>Here goes the leaderboard...</h1>
+	<h1>Here goes the leaderboard...</h1>
 
-    <p>This is where all of the drecriptive text will go. This data right now is dummy data and 
-        isn't hooked up to the backend. 
-    </p>
+	<p>
+		This is where all of the drecriptive text will go. This data right now is dummy data and isn't
+		hooked up to the backend.
+	</p>
 </div>
 
 <!-- Table Component  -->
@@ -83,56 +83,55 @@ return leaderboardPlayers;
   
 
 <style>
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+	}
 
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+	td,
+	th {
+		border: 1px solid #dddddd;
+		text-align: left;
+		padding: 8px;
+	}
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
+	tr:nth-child(even) {
+		background-color: #dddddd;
+	}
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-          
-#title {
-    height: 90px;
-    width: 150px;
-    background-image: url(../images/spinning-fish.gif);
-    background-size: cover;
-    background-position: center;
-}
+	#title {
+		height: 90px;
+		width: 150px;
+		background-image: url(../images/spinning-fish.gif);
+		background-size: cover;
+		background-position: center;
+	}
 
-
-.Signout {
-    float: right;
-    display: flex;
-    align-items: center;
-    
-}
-nav {
-    position: sticky;
-    top: 0px;
-    display: flex;
-    padding: 0.5%;
-    background-color: #324a69;
-}
-.navbar {
-  float: left;
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-a {
-    color: white;
-    text-decoration: none;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.2em;
-    margin-left: 6%;
-}
+	.Signout {
+		float: right;
+		display: flex;
+		align-items: center;
+	}
+	nav {
+		position: sticky;
+		top: 0px;
+		display: flex;
+		padding: 0.5%;
+		background-color: #324a69;
+	}
+	.navbar {
+		float: left;
+		display: flex;
+		align-items: center;
+		width: 100%;
+	}
+	a {
+		color: white;
+		text-decoration: none;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+			Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+		font-size: 1.2em;
+		margin-left: 6%;
+	}
 </style>
