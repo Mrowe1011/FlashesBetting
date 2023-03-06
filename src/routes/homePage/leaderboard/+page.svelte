@@ -12,12 +12,14 @@ onAuthStateChanged(auth, (user) => {
 });
 
 let leaderboardPlayers = [];
+let scoreboardPlacement = 1;
 
 async function getdata(){
 
 let querySnapshot = await getDocs(collection(db, "users"))
 querySnapshot.forEach((doc) => {
   leaderboardPlayers.push(doc.data())
+  scoreboardPlacement = scoreboardPlacement + 1;
 });
 
 return leaderboardPlayers;
@@ -47,10 +49,10 @@ return leaderboardPlayers;
                   Place
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                  First
+                  Username
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                  Last
+                  Email
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                   Score
@@ -59,17 +61,17 @@ return leaderboardPlayers;
             </thead>
             <tbody>
               {#await getdata() then users} 
-              {#each users as { player1first, player1last, player1Score}, i}
+              {#each users as { name, email, points}, index}
               <tr class="bg-gray-100 border-b">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{index + 1}</td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {player1first}
+                  {name}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {player1last}
+                  {email}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {player1Score}
+                  {points}
                 </td>
               </tr>
               {/each}
