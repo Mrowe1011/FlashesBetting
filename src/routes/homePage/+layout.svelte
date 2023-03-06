@@ -1,12 +1,20 @@
 <script>
-	import { signout, auth } from '../stores/stores';
+	import { signout, auth, db } from '../stores/stores';
 	import { onAuthStateChanged } from 'firebase/auth';
+	import { getDoc, doc, updateDoc, onSnapshot } from 'firebase/firestore';
 	let currentUser;
+	let profile;
+
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
 			currentUser = user;
 		}
 	});
+	async function getData() {
+		let querySnapshot = await getDoc(doc(db, 'users', currentUser.uid));
+		profile = querySnapshot.data();
+		return profile;
+	}
 </script>
 
 {#if currentUser}
@@ -14,12 +22,15 @@
 		<img id="title" alt="" />
 		<div class="navbar">
 			<a href="/homePage/activeBets">Active Bets</a>
-			<a href="/">Calendar</a>
+			<a href="/homePage/calendar">Calendar</a>
 			<a href="/homePage/leaderboard">Leaderboard</a>
 			<a href="/">Kent Game Schedule</a>
 		</div>
 		<div class="right">
 			<p>{currentUser.email}</p>
+			{#await getData() then profile}
+				<p>{profile.points}</p>
+			{/await}
 			<a href="/homePage/accountSettings"> Settings</a>
 			<button class="Signout" on:click={signout}>Signout</button>
 		</div>

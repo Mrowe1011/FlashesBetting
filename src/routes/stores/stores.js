@@ -9,6 +9,7 @@ import {
 } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
 import { firebaseConfig } from './firebaseConfig';
+import { getDocs, getDoc, collection, doc, setDoc, updateDoc, increment } from 'firebase/firestore';
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
@@ -27,7 +28,7 @@ export function onSubmit(username, password) {
 		.then(() => {
 			setPersistence(auth, browserSessionPersistence);
 			currentUser = auth.currentUser;
-			location.href = '/homePage'; // Svelte normally appends .html to location hrefs but doesn't for this because its a js file. Remove the .html while your developing otherwise it doesn't work
+			location.href = '/homePage.html'; // Svelte normally appends .html to location hrefs but doesn't for this because its a js file. Remove the .html while your developing otherwise it doesn't work
 		});
 }
 
@@ -40,4 +41,15 @@ export function signout() {
 		.catch((error) => {
 			alert(error);
 		});
+}
+
+export let games = getdata();
+
+async function getdata() {
+	let querySnapshot = await getDocs(collection(db, 'Games'));
+	games = [];
+	querySnapshot.forEach((doc) => {
+		games.push(doc.data());
+	});
+	return games;
 }
