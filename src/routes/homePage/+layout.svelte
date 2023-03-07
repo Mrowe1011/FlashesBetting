@@ -31,8 +31,8 @@
 			{#await getData() then profile}
 				<p>{profile.points}</p>
 			{/await}
-			<a href="/homePage/accountSettings"> Settings</a>
-			<button class="Signout" on:click={signout}>Signout</button>
+			<a href="/homePage/accountSettings"><img src="src/routes/images/icons8-settings-50.png" alt="Settings" class="wheel"></a>
+			<button class="Signout" on:click={signout}><img src="src/routes/images/icons8-logout-48.png" alt="Sign Out"></button>
 		</div>
 	</nav>
 
@@ -44,15 +44,16 @@
 
 <style>
 	#title {
-		height: 90px;
-		width: 150px;
-		background-image: url(../images/spinning-fish.gif);
+		height: 120px;
+		width: 180px;
+		background-image: url(../images/IG-GoldFlash-NK-7-19-01.png);
 		background-size: cover;
 		background-position: center;
 	}
 
 	.right {
 		padding-right: 2%;
+		text-align: right;
 	}
 	.Signout {
 		float: right;
@@ -68,7 +69,7 @@
 	}
 	.navbar {
 		float: left;
-		display: flex;
+		display: wrap;
 		align-items: center;
 		width: 100%;
 	}
@@ -84,5 +85,10 @@
 		background-color: #2d425e00;
 		border: 0;
 		padding: 0;
+	}
+
+	@media only screen and (max-device-width: 480px) {
+		
+		
 	}
 </style>
