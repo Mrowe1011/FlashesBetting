@@ -16,11 +16,13 @@
 			games.forEach((game) => {
 				if (game.id === gameID) {
 					activeGamers.push(game);
+					console.log(game);
 				}
 			});
 		});
 		return activeGamers;
 	}
+
 	let image2 =
 		'https://dxbhsrqyrr690.cloudfront.net/sidearm.nextgen.sites/kentstatesports.com/images/responsive_2020/nav_main.svg';
 	let team2 = 'Kent State';
@@ -48,6 +50,7 @@
 							{team2}
 						</h1>
 					</div>
+					<div />
 				</div>
 			</div>
 		{/each}
@@ -55,9 +58,12 @@
 {/await}
 
 <style>
+	.background {
+	}
 	.container {
 		display: flex;
 		flex-direction: column;
+		background-color: #000f24;
 	}
 	.games {
 		font-size: 1em;
@@ -67,8 +73,12 @@
 	.teams {
 		display: flex;
 		flex-direction: column;
-		padding: 4%;
+		padding: 2%;
+		margin: 2%;
 		width: 60%;
+		background-color: rgba(255, 255, 255, 0.945);
+		box-shadow: 0px 0px 2em #ffffff;
+		border-radius: 50px;
 	}
 	.single {
 		display: flex;
@@ -79,5 +89,6 @@
 	}
 	hr {
 		width: 100%;
+		color: black;
 	}
 </style>
