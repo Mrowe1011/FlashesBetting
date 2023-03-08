@@ -24,8 +24,4 @@
 		background-color: #000f24;
 		height: 100vh;
 	}
-
-	@media only screen and (max-device-width: 480px) {
-		
-	}
 </style>

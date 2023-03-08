@@ -6,8 +6,8 @@
 
 <div class="everything">
 	<div class="login">
-		<h1 id="welcome">Flashes Betting</h1>
-		
+		<h1 id="welcome">Welcome</h1>
+		<hr />
 		<form on:submit|preventDefault={onSubmit(username, password)}>
 			<div>
 				<label class="stuff" for="name">Email</label><br />
@@ -19,7 +19,7 @@
 			</div>
 			<button class="stuff" id="submit" type="submit">Login</button>
 		</form>
-		<a style="text-align:center; color:white; padding-top:3%" href="/forgotAccount">Forgot Password</a>
+		<a style="text-align:center; color:white" href="/forgotAccount">Forgot Password</a>
 		<p style="text-align:center;">New Here?</p>
 		<a href="/createAccount" id="create"> Create an account!</a>
 
@@ -54,9 +54,8 @@
 		justify-content: space-around;
 		font-weight: lighter;
 		border-radius: 4%;
-		align-items: center;
 
-		height: 40%;
+		height: 30%;
 		width: 20%;
 		padding: 3%;
 		box-shadow: 0px 0px 2em #00275ad7;
@@ -97,8 +96,6 @@
 	#welcome {
 		text-align: center;
 		font-size: 2em;
-		position: fixed;
-		top: 20px;
 	}
 	label {
 		margin-top: 5%;
@@ -113,22 +110,5 @@
 		width: 100%;
 		padding: 0.25em;
 		text-decoration: none;
-	}
-
-	@media only screen and (max-device-width: 480px) {
-		.login {
-			background-color: #001b3fe1;
-			color: white;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-around;
-			font-weight: lighter;
-			border-radius: 4%;
-
-			height: 35%;
-			width: 50%;
-			padding: 10%;
-			box-shadow: 0px 0px 2em #00275ad7;
-		}
 	}
 </style>
