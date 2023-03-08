@@ -19,17 +19,20 @@
 
 {#if currentUser}
 	<nav>
-		<img id="title" alt="" />
+		<img
+			id="title"
+			alt=""
+			src="https://img.covers.com/covers/data/new_logos/ncaab/kent.png?auto=compress&auto=format"
+		/>
 		<div class="navbar">
 			<a href="/homePage/activeBets">Active Bets</a>
 			<a href="/homePage/calendar">Calendar</a>
 			<a href="/homePage/leaderboard">Leaderboard</a>
-			<a href="/">Kent Game Schedule</a>
 		</div>
 		<div class="right">
 			<p>{currentUser.email}</p>
 			{#await getData() then profile}
-				<p>{profile.points}</p>
+				<p>{profile.points} Points</p>
 			{/await}
 			<a href="/homePage/accountSettings"><img src="src/routes/images/icons8-settings-50.png" alt="Settings" class="wheel"></a>
 			<button class="Signout" on:click={signout}><img src="src/routes/images/icons8-logout-48.png" alt="Sign Out"></button>
@@ -44,9 +47,9 @@
 
 <style>
 	#title {
-		height: 120px;
-		width: 180px;
-		background-image: url(../images/IG-GoldFlash-NK-7-19-01.png);
+		height: 100px;
+		width: 100px;
+		border: 0;
 		background-size: cover;
 		background-position: center;
 	}
