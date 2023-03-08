@@ -6,7 +6,7 @@
 
 <div class="everything">
 	<div class="login">
-		<h1 id="welcome">Welcome</h1>
+		<h1 id="welcome">Flashes Betting</h1>
 		<hr />
 		<form on:submit|preventDefault={onSubmit(username, password)}>
 			<div>
@@ -111,4 +111,21 @@
 		padding: 0.25em;
 		text-decoration: none;
 	}
+
+	@media only screen and (max-width: 600px) {
+		.login {
+		background-color: #001b3fe1;
+		color: white;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		font-weight: lighter;
+		border-radius: 4%;
+
+		height: 40%;
+		width: 70%;
+		padding: 3%;
+		box-shadow: 0px 0px 2em #00275ad7;
+	}
+  }
 </style>
