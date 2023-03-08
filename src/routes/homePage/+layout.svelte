@@ -34,8 +34,8 @@
 			{#await getData() then profile}
 				<p>{profile.points} Points</p>
 			{/await}
-			<a href="/homePage/accountSettings"> Settings</a>
-			<button class="Signout" on:click={signout}>Signout</button>
+			<a href="/homePage/accountSettings"><img src="src/routes/images/icons8-settings-50.png" alt="Settings" class="wheel"></a>
+			<button class="Signout" on:click={signout}><img src="src/routes/images/icons8-logout-48.png" alt="Sign Out"></button>
 		</div>
 	</nav>
 
@@ -56,6 +56,7 @@
 
 	.right {
 		padding-right: 2%;
+		text-align: right;
 	}
 	.Signout {
 		float: right;
@@ -71,7 +72,7 @@
 	}
 	.navbar {
 		float: left;
-		display: flex;
+		display: wrap;
 		align-items: center;
 		width: 100%;
 	}
@@ -87,5 +88,10 @@
 		background-color: #2d425e00;
 		border: 0;
 		padding: 0;
+	}
+
+	@media only screen and (max-device-width: 480px) {
+		
+		
 	}
 </style>
