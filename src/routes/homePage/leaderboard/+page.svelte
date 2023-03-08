@@ -2,36 +2,37 @@
 import { signout , auth} from '../../stores/stores'
 import { onAuthStateChanged } from 'firebase/auth';
 import { db } from "../../stores/stores";
-import {getDocs, collection } from "firebase/firestore"
+import {getDocs, collection, query } from "firebase/firestore"
 import "../../app.css";
+
+
 let currentUser
 onAuthStateChanged(auth, (user) => {
   if (user) {
     currentUser = user
   } 
 });
+	let leaderboardPlayers = [];
+	let scoreboardPlacement = 1;
 
-let leaderboardPlayers = [];
-let scoreboardPlacement = 1;
 
 async function getdata(){
-
-let querySnapshot = await getDocs(collection(db, "users"))
-querySnapshot.forEach((doc) => {
-  leaderboardPlayers.push(doc.data())
-  scoreboardPlacement = scoreboardPlacement + 1;
-});
-
-return leaderboardPlayers;
+	let querySnapshot = await getDocs(collection(db, "users"))
+	querySnapshot.forEach((doc) => {
+		leaderboardPlayers.push(doc.data())
+		scoreboardPlacement = scoreboardPlacement + 1;
+	});
+	leaderboardPlayers.sort((a, b) => b.points - a.points);
+	return leaderboardPlayers;
 }
 </script>
 
-<div style="padding-left: 35px; padding-top: 30px; padding-bottom: 30px;">
-	<h1>Here goes the leaderboard...</h1>
+<div style="padding-left: 80px; padding-top: 30px; padding-bottom: 40px;">
+	<h1>Flashes Betting Leaderboard</h1>
 
 	<p>
-		This is where all of the drecriptive text will go. This data right now is dummy data and isn't
-		hooked up to the backend.
+		This is a list of all of our playeys. It shows who is the best better
+		and hopefully motivates you to bet better!
 	</p>
 </div>
 
@@ -39,7 +40,7 @@ return leaderboardPlayers;
 
 <div class="flex flex-col">
     <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
-      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+      <div class="py-2 inline-block min-w-full sm:px-5 lg:px-20">
         <div class="overflow-hidden">
           <table class="min-w-full">
             <thead class="bg-white border-b">
