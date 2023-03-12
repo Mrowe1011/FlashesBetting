@@ -1,3 +1,4 @@
+//firebase zone
 import { getFirestore } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import {
@@ -7,19 +8,22 @@ import {
 	browserSessionPersistence,
 	signOut
 } from 'firebase/auth';
-import { onAuthStateChanged } from 'firebase/auth';
+import { getDoc, doc } from 'firebase/firestore';
 import { firebaseConfig } from './firebaseConfig';
-import { getDocs, getDoc, collection, doc, setDoc, updateDoc, increment } from 'firebase/firestore';
+import { getDocs, collection } from 'firebase/firestore';
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
-export let currentUser;
+//firebase zone
 
-onAuthStateChanged(auth, (user) => {
-	if (user) {
-		currentUser = user;
-	}
-});
+// subscribe to auth state
+import { userStore } from 'sveltefire';
+export const currentUser = userStore(auth);
+// auth state
+
+//get points profile
+//get profile
+
 export function onSubmit(username, password) {
 	signInWithEmailAndPassword(auth, username, password)
 		.catch((error) => {
@@ -27,19 +31,7 @@ export function onSubmit(username, password) {
 		})
 		.then(() => {
 			setPersistence(auth, browserSessionPersistence);
-			currentUser = auth.currentUser;
 			location.href = '/homePage'; // Svelte normally appends .html to location hrefs but doesn't for this because its a js file. Remove the .html while your developing otherwise it doesn't work
-		});
-}
-
-export function signout() {
-	signOut(auth)
-		.then(() => {
-			currentUser = auth.currentUser;
-			location.href = '/';
-		})
-		.catch((error) => {
-			alert(error);
 		});
 }
 

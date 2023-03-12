@@ -1,6 +1,6 @@
 <script>
-	import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
-	const auth = getAuth();
+	import { auth } from '../stores/stores';
+	import { sendPasswordResetEmail } from 'firebase/auth';
 	let email = '';
 	function onSubmit() {
 		sendPasswordResetEmail(auth, email)
@@ -17,18 +17,13 @@
 <div class="everything">
 	<div class="login">
 		<h1 id="welcome">Send a recovery email!</h1>
-		<hr />
 		<form on:submit|preventDefault={onSubmit}>
 			<div>
 				<label class="stuff" for="name">Email</label><br />
 				<input bind:value={email} type="text" id="email" name="email" class="stuff" />
 			</div>
-
 			<button class="stuff" id="submit" type="submit">Send</button>
 		</form>
-
-		<br />
-		<br />
 	</div>
 </div>
 
@@ -56,22 +51,26 @@
 		color: white;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-around;
+		justify-content: space-evenly;
 		font-weight: lighter;
-		border-radius: 4%;
-
-		height: 30%;
-		width: 20%;
+		border-radius: 15px;
+		height: 47%;
+		width: 25%;
 		padding: 3%;
 		box-shadow: 0px 0px 2em #00275ad7;
 	}
-	hr {
-		border: 0;
-		clear: both;
-		display: block;
-		width: 80%;
-		background-color: #000000;
-		height: 1px;
+	@media only screen and (max-width: 1500px) {
+		.login {
+			height: 50%;
+			width: 40%;
+		}
+	}
+
+	@media only screen and (max-width: 800px) {
+		.login {
+			height: 50%;
+			width: 70%;
+		}
 	}
 	input {
 		border-radius: 5px;
@@ -89,7 +88,7 @@
 		margin-top: 5%;
 		border-radius: 5px;
 		padding: 0.5em;
-		width: 102.6%;
+		width: 100%;
 		background-color: #324a69d7;
 		color: white;
 		border: 2px solid #2e5b97d7;
@@ -104,16 +103,5 @@
 	}
 	label {
 		margin-top: 5%;
-	}
-	#create {
-		border-radius: 5px;
-		text-align: center;
-		color: white;
-		background-color: #324a69d7;
-		color: white;
-		border: 2px solid #2e5b97d7;
-		width: 100%;
-		padding: 0.25em;
-		text-decoration: none;
 	}
 </style>

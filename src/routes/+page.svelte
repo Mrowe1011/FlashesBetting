@@ -7,24 +7,23 @@
 <div class="everything">
 	<div class="login">
 		<h1 id="welcome">Flashes Betting</h1>
-		<hr />
 		<form on:submit|preventDefault={onSubmit(username, password)}>
 			<div>
-				<label class="stuff" for="name">Email</label><br />
+				<label class="stuff" for="name">Email</label>
 				<input bind:value={username} type="text" id="email" name="email" class="stuff" />
 			</div>
 			<div>
-				<label class="stuff" for="name">Password</label><br />
+				<label class="stuff" for="name">Password</label>
 				<input bind:value={password} type="password" id="password" name="password" class="stuff" />
 			</div>
 			<button class="stuff" id="submit" type="submit">Login</button>
 		</form>
-		<a style="text-align:center; color:white" href="/forgotAccount">Forgot Password</a>
-		<p style="text-align:center;">New Here?</p>
-		<a href="/createAccount" id="create"> Create an account!</a>
 
-		<br />
-		<br />
+		<a style="text-align:center; color:white" href="/forgotAccount">Forgot Password</a>
+		<div class="strike">
+			<span>New Here?</span>
+		</div>
+		<a href="/createAccount" id="create"> Create an account!</a>
 	</div>
 </div>
 
@@ -51,23 +50,28 @@
 		color: white;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-around;
+		justify-content: space-evenly;
 		font-weight: lighter;
-		border-radius: 4%;
-
-		height: 30%;
-		width: 20%;
-		padding: 3%;
+		border-radius: 15px;
+		height: 55%;
+		width: 25%;
+		padding: 2%;
 		box-shadow: 0px 0px 2em #00275ad7;
 	}
-	hr {
-		border: 0;
-		clear: both;
-		display: block;
-		width: 80%;
-		background-color: #000000;
-		height: 1px;
+	@media only screen and (max-width: 1500px) {
+		.login {
+			height: 50%;
+			width: 40%;
+		}
 	}
+
+	@media only screen and (max-width: 800px) {
+		.login {
+			height: 50%;
+			width: 70%;
+		}
+	}
+
 	input {
 		border-radius: 5px;
 		border: 3px solid #004297d7;
@@ -83,8 +87,8 @@
 	#submit {
 		margin-top: 5%;
 		border-radius: 5px;
-		padding: 0.5em;
-		width: 102.6%;
+		padding: 0.2em;
+		width: 100%;
 		background-color: #324a69d7;
 		color: white;
 		border: 2px solid #2e5b97d7;
@@ -112,20 +116,35 @@
 		text-decoration: none;
 	}
 
-	@media only screen and (max-width: 600px) {
-		.login {
-		background-color: #001b3fe1;
-		color: white;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-around;
-		font-weight: lighter;
-		border-radius: 4%;
-
-		height: 40%;
-		width: 70%;
-		padding: 3%;
-		box-shadow: 0px 0px 2em #00275ad7;
+	.strike {
+		display: block;
+		text-align: center;
+		overflow: hidden;
+		white-space: nowrap;
 	}
-  }
+
+	.strike > span {
+		position: relative;
+		display: inline-block;
+	}
+
+	.strike > span:before,
+	.strike > span:after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		width: 9999px;
+		height: 1px;
+		background: white;
+	}
+
+	.strike > span:before {
+		right: 100%;
+		margin-right: 15px;
+	}
+
+	.strike > span:after {
+		left: 100%;
+		margin-left: 15px;
+	}
 </style>

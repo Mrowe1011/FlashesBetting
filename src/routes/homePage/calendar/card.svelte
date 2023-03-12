@@ -26,7 +26,7 @@
 			doc(db, 'Games', String(id)),
 			{
 				bettors: {
-					[currentUser.email]: {
+					[$currentUser.email]: {
 						betAmount: betAmount,
 						team: team1
 					}
@@ -36,18 +36,18 @@
 		);
 
 		setDoc(
-			doc(db, 'users', currentUser.uid),
+			doc(db, 'users', $currentUser.uid),
 			{ activeBets: { ['game ' + id]: { id, team1, betAmount } } },
 			{ merge: true }
 		);
-		updateDoc(doc(db, 'users', currentUser.uid), { points: increment(-betAmount) });
+		updateDoc(doc(db, 'users', $currentUser.uid), { points: increment(-betAmount) });
 	};
 	const addTeamTwo = (id) => {
 		setDoc(
 			doc(db, 'Games', String(id)),
 			{
 				bettors: {
-					[currentUser.email]: {
+					[$currentUser.email]: {
 						betAmount: betAmount,
 						team: 'Kent State'
 					}
@@ -57,59 +57,66 @@
 		);
 
 		setDoc(
-			doc(db, 'users', currentUser.uid),
+			doc(db, 'users', $currentUser.uid),
 			{ activeBets: { ['game ' + id]: { id, team1: 'Kent State', betAmount2 } } },
 			{ merge: true }
 		);
-		updateDoc(doc(db, 'users', currentUser.uid), { points: increment(-betAmount2) });
+		updateDoc(doc(db, 'users', $currentUser.uid), { points: increment(-betAmount2) });
 	};
 </script>
 
-<slot {Description} {id} {startDate} {image1} {team1}>
-	<div {id} class="games">
+<slot {Description} {id} {startDate} {image1} {team1} {i}>
+	<div {id} class="games" transition:fly={{ x: 100, duration: 200 }}>
 		<div class="teams" on:mouseenter={enter} on:mouseleave={leave}>
-			<h1>{Description}, {startDate}</h1>
+			<h1 class="text-xl font-semibold">{Description}, {startDate}</h1>
 			<div class="inside">
 				<div class="single">
 					<img src={image1} alt="" />
-					<h1>
+					<h1 class="text">
 						{team1}
 					</h1>
 				</div>
-				{#if hovering}
-					<div class="placeBet" transition:fly={{ x: 35, duration: 100 }}>
-						<form on:submit|preventDefault={() => addTeamOne(id, team1)}>
-							<label for="">Bet amount:</label>
-							<input type="text" bind:value={betAmount} />
-							<button type="submit">Place Bet</button>
-						</form>
-					</div>
-				{/if}
+
+				<div class="placeBet" transition:fly={{ x: 35, duration: 100 }}>
+					<form on:submit|preventDefault={() => addTeamOne(id, team1)}>
+						<label for="">Bet amount:</label>
+						<input type="text" bind:value={betAmount} />
+						<button type="submit">Place Bet</button>
+					</form>
+				</div>
 			</div>
 
 			<hr />
 			<div class="inside">
 				<div class="single">
 					<img src={image2} alt="" />
-					<h1>
+					<h1 class="text">
 						{team2}
 					</h1>
 				</div>
-				{#if hovering}
-					<div class="placeBet" transition:fly={{ x: 35, duration: 100 }}>
-						<form on:submit|preventDefault={() => addTeamTwo(id, team1)}>
-							<label for="">Bet amount:</label>
-							<input type="text" bind:value={betAmount2} />
-							<button type="submit">Place Bet</button>
-						</form>
-					</div>
-				{/if}
+
+				<div class="placeBet" transition:fly={{ x: 35, duration: 100 }}>
+					<form on:submit|preventDefault={() => addTeamTwo(id, team1)}>
+						<label for="">Bet amount:</label>
+						<input type="text" bind:value={betAmount2} />
+						<button type="submit">Place Bet</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
 </slot>
 
 <style>
+	.text {
+		margin-top: auto;
+		margin-bottom: auto;
+		margin-left: 10%;
+		white-space: nowrap;
+		font-size: large;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+			Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	}
 	.inside {
 		display: flex;
 		justify-content: space-between;
@@ -119,6 +126,7 @@
 		font-size: 1em;
 		display: flex;
 		justify-content: space-around;
+		width: 99.1vw;
 	}
 	.teams {
 		display: flex;
@@ -126,10 +134,8 @@
 		padding: 2%;
 		margin: 2%;
 		width: 60%;
-		background-color: rgba(255, 255, 255, 0.979);
 		background-color: rgba(255, 255, 255, 0.945);
-		box-shadow: 0px 0px 1.5em #ffffff98;
-		border-radius: 30px;
+		border-radius: 15px;
 	}
 	.single {
 		display: flex;

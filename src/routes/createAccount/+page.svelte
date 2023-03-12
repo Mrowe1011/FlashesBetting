@@ -1,21 +1,15 @@
 <script>
-	import { app, currentUser } from '../stores/stores';
-	import {
-		getAuth,
-		createUserWithEmailAndPassword,
-		signInWithEmailAndPassword
-	} from 'firebase/auth';
-	import { getDatabase, ref, set } from 'firebase/database';
-	import { doc, setDoc, getFirestore } from 'firebase/firestore';
-	import { goto } from '$app/navigation';
-	const auth = getAuth(app);
+	import { auth, db } from '../stores/stores';
+	import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+
+	import { doc, setDoc } from 'firebase/firestore';
+
 	let email = '';
 	let password = '';
 	let password2 = '';
 	let Fname = '';
 	let points = 100;
 	let picture = Math.floor(Math.random() * 5);
-	const db = getFirestore(app);
 	async function onSubmit() {
 		createUserWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
@@ -38,7 +32,12 @@
 
 <div class="everything">
 	<div class="login">
-		<h1>Let's get to know each other!</h1>
+		<h1
+			class="text-xl font-semibold mb-5
+		"
+		>
+			Let's get to know each other!
+		</h1>
 		<form on:submit|preventDefault={onSubmit}>
 			<div>
 				<label for="name">Username</label>
@@ -105,14 +104,26 @@
 		color: white;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-around;
+		justify-content: space-evenly;
 		font-weight: lighter;
-		border-radius: 4%;
-
-		height: 40%;
-		width: 20%;
+		border-radius: 15px;
+		height: 47%;
+		width: 25%;
 		padding: 3%;
 		box-shadow: 0px 0px 2em #00275ad7;
+	}
+	@media only screen and (max-width: 1500px) {
+		.login {
+			height: 50%;
+			width: 40%;
+		}
+	}
+
+	@media only screen and (max-width: 800px) {
+		.login {
+			height: 50%;
+			width: 70%;
+		}
 	}
 	input {
 		border-radius: 5px;
@@ -140,6 +151,9 @@
 		margin-top: 2.5%;
 	}
 	label {
+		margin-top: 5%;
+	}
+	p {
 		margin-top: 5%;
 	}
 </style>
