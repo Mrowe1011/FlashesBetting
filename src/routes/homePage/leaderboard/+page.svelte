@@ -1,5 +1,5 @@
 <script>
-	import { signout, auth } from '../../stores/stores';
+	import { auth } from '../../stores/stores';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { db } from '../../stores/stores';
 	import { getDocs, collection, query } from 'firebase/firestore';
