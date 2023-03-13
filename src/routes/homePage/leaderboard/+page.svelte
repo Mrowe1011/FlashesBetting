@@ -24,6 +24,7 @@
 	}
 </script>
 
+<section class="background">
 <div style="padding-left: 80px; padding-top: 30px; padding-bottom: 40px;">
 	<h1>Flashes Betting Leaderboard</h1>
 
@@ -81,8 +82,15 @@
 		</div>
 	</div>
 </div>
+</section>
 
 <style>
+	.background {
+		background-color: #000f24;
+		height: 100vh;
+		color: white;
+	}
+
 	table {
 		font-family: arial, sans-serif;
 		border-collapse: collapse;
