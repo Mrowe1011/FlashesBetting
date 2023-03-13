@@ -18,7 +18,7 @@ export const auth = getAuth(app);
 
 // subscribe to auth state
 import { userStore } from 'sveltefire';
-export const currentUser = userStore(auth);
+export let currentUser = userStore(auth);
 // auth state
 
 //get points profile
@@ -31,7 +31,7 @@ export function onSubmit(username, password) {
 		})
 		.then(() => {
 			setPersistence(auth, browserSessionPersistence);
-			location.href = '/homePage'; // Svelte normally appends .html to location hrefs but doesn't for this because its a js file. Remove the .html while your developing otherwise it doesn't work
+			location.href = '/homePage.html'; // Svelte normally appends .html to location hrefs but doesn't for this because its a js file. Remove the .html while your developing otherwise it doesn't work
 		});
 }
 

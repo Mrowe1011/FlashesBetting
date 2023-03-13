@@ -13,7 +13,6 @@
 	function signout() {
 		signOut(auth)
 			.then(() => {
-				currentUser = auth.currentUser;
 				location.href = '/';
 			})
 			.catch((error) => {

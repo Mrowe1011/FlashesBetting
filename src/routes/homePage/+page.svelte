@@ -1,6 +1,6 @@
 <script>
 	import { getDoc, collection, doc, setDoc, updateDoc, increment } from 'firebase/firestore';
-	import { currentUser, db, games, profiles } from '../stores/stores';
+	import { currentUser, db, games } from '../stores/stores';
 	import { fly } from 'svelte/transition';
 	let profile;
 	let activeGamers = [];
