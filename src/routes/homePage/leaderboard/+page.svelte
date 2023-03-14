@@ -41,18 +41,18 @@
 		<div class="py-2 inline-block min-w-full sm:px-5 lg:px-20">
 			<div class="overflow-hidden">
 				<table class="min-w-full">
-					<thead class="bg-white border-b">
+					<thead class="bg-indigo-700 border-b">
 						<tr>
-							<th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+							<th scope="col" class="text-sm font-medium text-white-900 px-6 py-4 text-left">
 								Place
 							</th>
-							<th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+							<th scope="col" class="text-sm font-medium text-white-900 px-6 py-4 text-left">
 								Username
 							</th>
-							<th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+							<th scope="col" class="text-sm font-medium text-white-900 px-6 py-4 text-left">
 								Email
 							</th>
-							<th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+							<th scope="col" class="text-sm font-medium text-white-900 px-6 py-4 text-left">
 								Score
 							</th>
 						</tr>
@@ -60,17 +60,17 @@
 					<tbody>
 						{#await getdata() then users}
 							{#each users as { name, email, points }, index}
-								<tr class="bg-gray-100 border-b">
-									<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+								<tr class="bg-gray-400 border-b">
+									<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white-900"
 										>{index + 1}</td
 									>
-									<td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+									<td class="text-sm text-white-900 font-light px-6 py-4 whitespace-nowrap">
 										{name}
 									</td>
-									<td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+									<td class="text-sm text-white-900 font-light px-6 py-4 whitespace-nowrap">
 										{email}
 									</td>
-									<td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+									<td class="text-sm text-white-900 font-light px-6 py-4 whitespace-nowrap">
 										{points}
 									</td>
 								</tr>
@@ -105,7 +105,7 @@
 	}
 
 	tr:nth-child(even) {
-		background-color: #dddddd;
+		background-color: #6c90be;
 	}
 
 	#title {
