@@ -19,7 +19,7 @@
 					activeGamers.push(game);
 					let gamblers = game.bettors;
 					for (const gambler in gamblers) {
-						if (gambler === $currentUser.email) {
+						if (gambler === $currentUser.uid) {
 							currentbet.push(gamblers[gambler]);
 							activeGamers.amount += gamblers[gambler].betAmount;
 						}

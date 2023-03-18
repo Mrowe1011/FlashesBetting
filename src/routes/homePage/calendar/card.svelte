@@ -1,9 +1,8 @@
 <script>
 	import { doc, setDoc, updateDoc, increment } from 'firebase/firestore';
 	import { currentUser, db, games } from '../../stores/stores';
-	export let hovering;
 	export let id;
-	export let Description = 'fuck';
+	export let Description;
 	export let startDate;
 	export let image1;
 	export let team1;
@@ -13,20 +12,13 @@
 	export let betAmount = 0;
 	export let betAmount2 = 0;
 	import { fly } from 'svelte/transition';
-	function enter() {
-		hovering = true;
-	}
-
-	function leave() {
-		hovering = false;
-	}
 
 	const addTeamOne = (id, team1) => {
 		setDoc(
 			doc(db, 'Games', String(id)),
 			{
 				bettors: {
-					[$currentUser.email]: {
+					[$currentUser.uid]: {
 						betAmount: betAmount,
 						team: team1
 					}
@@ -47,7 +39,7 @@
 			doc(db, 'Games', String(id)),
 			{
 				bettors: {
-					[$currentUser.email]: {
+					[$currentUser.uid]: {
 						betAmount: betAmount,
 						team: 'Kent State'
 					}
@@ -67,7 +59,7 @@
 
 <slot {Description} {id} {startDate} {image1} {team1} {i}>
 	<div {id} class="games" transition:fly={{ x: 100, duration: 200 }}>
-		<div class="teams" on:mouseenter={enter} on:mouseleave={leave}>
+		<div class="teams">
 			<h1 class="text-xl font-semibold">{Description}, {startDate}</h1>
 			<div class="inside">
 				<div class="single">

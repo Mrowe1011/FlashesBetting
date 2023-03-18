@@ -11,6 +11,7 @@ import {
 import { getDoc, doc } from 'firebase/firestore';
 import { firebaseConfig } from './firebaseConfig';
 import { getDocs, collection } from 'firebase/firestore';
+import { writable } from 'svelte/store';
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
@@ -19,9 +20,11 @@ export const auth = getAuth(app);
 // subscribe to auth state
 import { userStore } from 'sveltefire';
 export let currentUser = userStore(auth);
+console.log(currentUser.subscribe);
 // auth state
 
 //get points profile
+
 //get profile
 
 export function onSubmit(username, password) {
@@ -34,7 +37,15 @@ export function onSubmit(username, password) {
 			location.href = '/homePage'; // Svelte normally appends .html to location hrefs but doesn't for this because its a js file. Remove the .html while your developing otherwise it doesn't work
 		});
 }
-
+export function signout() {
+	signOut(auth)
+		.then(() => {
+			location.href = '/';
+		})
+		.catch((error) => {
+			alert(error);
+		});
+}
 export let games = getdata();
 
 async function getdata() {

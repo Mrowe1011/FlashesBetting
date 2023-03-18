@@ -1,7 +1,7 @@
 <script>
-	import { db, currentUser } from '../stores/stores';
-	import { getDoc, doc } from 'firebase/firestore';
-	import { signOut } from 'firebase/auth';
+	import { db, currentUser, signout } from '../stores/stores';
+	import { getDoc, doc, onSnapshot } from 'firebase/firestore';
+	import { onMount } from 'svelte';
 	//get stuff to display the points
 	let profile;
 	async function getData() {
@@ -9,15 +9,20 @@
 		profile = querySnapshot.data();
 		return profile;
 	}
+	// $: profile = onSnapshot(doc(db, 'users', $currentUser.uid), (doc) => {
+	// 	console.log('Current data: ', doc.data());
+	// 	profile = doc.data();
+	// });
+
+	// $: if ($currentUser) {
+	// 	profile = onSnapshot(doc(db, 'users', $currentUser.uid), (doc) => {
+	// 		console.log('Current data: ', doc.data());
+	// 	});
+	// }
+
 	//get stuff to display the points
-	function signout() {
-		signOut(auth)
-			.then(() => {
-				location.href = '/';
-			})
-			.catch((error) => {
-				alert(error);
-			});
+	async function unsub() {
+		console.log('why' + profile);
 	}
 
 	let page = 0;
