@@ -20,7 +20,7 @@ export const auth = getAuth(app);
 // subscribe to auth state
 import { userStore } from 'sveltefire';
 export let currentUser = userStore(auth);
-console.log(currentUser.subscribe);
+
 // auth state
 
 //get points profile

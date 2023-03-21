@@ -1,102 +1,140 @@
 <script>
-	import { doc, setDoc, updateDoc, increment } from 'firebase/firestore';
-	import { currentUser, db, games } from '../../stores/stores';
+	import { doc, setDoc, updateDoc, increment, onSnapshot } from 'firebase/firestore';
+	import { db, games } from '../../stores/stores';
 	export let id;
 	export let Description;
+	export let bettors;
 	export let startDate;
 	export let image1;
 	export let team1;
+	export let finished;
 	export let image2 =
 		'https://dxbhsrqyrr690.cloudfront.net/sidearm.nextgen.sites/kentstatesports.com/images/responsive_2020/nav_main.svg';
 	export let team2 = 'Kent State';
 	export let betAmount = 0;
 	export let betAmount2 = 0;
+	export let currentUser;
 	import { fly } from 'svelte/transition';
+	let profile;
+	$: profile = onSnapshot(doc(db, 'users', currentUser.uid), (doc) => {
+		profile = doc.data();
+	});
+	let something = () => {
+		try {
+			if (typeof bettors[currentUser.uid] != 'undefined') {
+				return true;
+			} else {
+				return false;
+			}
+		} catch {
+			return false;
+		}
+	};
 
 	const addTeamOne = (id, team1) => {
-		setDoc(
-			doc(db, 'Games', String(id)),
-			{
-				bettors: {
-					[$currentUser.uid]: {
-						betAmount: betAmount,
-						team: team1
+		if (profile.points >= betAmount) {
+			setDoc(
+				doc(db, 'Games', String(id)),
+				{
+					bettors: {
+						[currentUser.uid]: {
+							betAmount: betAmount,
+							team: team1
+						}
 					}
-				}
-			},
-			{ merge: true }
-		);
+				},
+				{ merge: true }
+			);
 
-		setDoc(
-			doc(db, 'users', $currentUser.uid),
-			{ activeBets: { ['game ' + id]: { id, team1, betAmount } } },
-			{ merge: true }
-		);
-		updateDoc(doc(db, 'users', $currentUser.uid), { points: increment(-betAmount) });
+			setDoc(
+				doc(db, 'users', currentUser.uid),
+				{ activeBets: { ['game ' + id]: { id, team1, betAmount } } },
+				{ merge: true }
+			);
+			updateDoc(doc(db, 'users', currentUser.uid), { points: increment(-betAmount) });
+			alert('Bet placed!');
+		} else if (typeof betAmount === 'string') {
+			alert('input should be a number');
+		} else {
+			alert("You don't have enough points!");
+		}
 	};
 	const addTeamTwo = (id) => {
-		setDoc(
-			doc(db, 'Games', String(id)),
-			{
-				bettors: {
-					[$currentUser.uid]: {
-						betAmount: betAmount,
-						team: 'Kent State'
+		if (profile.points >= betAmount2) {
+			setDoc(
+				doc(db, 'Games', String(id)),
+				{
+					bettors: {
+						[currentUser.uid]: {
+							betAmount: betAmount,
+							team: 'Kent State'
+						}
 					}
-				}
-			},
-			{ merge: true }
-		);
+				},
+				{ merge: true }
+			);
 
-		setDoc(
-			doc(db, 'users', $currentUser.uid),
-			{ activeBets: { ['game ' + id]: { id, team1: 'Kent State', betAmount2 } } },
-			{ merge: true }
-		);
-		updateDoc(doc(db, 'users', $currentUser.uid), { points: increment(-betAmount2) });
+			setDoc(
+				doc(db, 'users', currentUser.uid),
+				{ activeBets: { ['game ' + id]: { id, team1: 'Kent State', betAmount2 } } },
+				{ merge: true }
+			);
+			updateDoc(doc(db, 'users', currentUser.uid), { points: increment(-betAmount2) });
+			alert('Bet placed!');
+		} else if (typeof betAmount === 'string') {
+			alert('input should be a number');
+		} else {
+			alert("You don't have enough points!");
+		}
 	};
 </script>
 
-<slot {Description} {id} {startDate} {image1} {team1} {i}>
-	<div {id} class="games" transition:fly={{ x: 100, duration: 200 }}>
-		<div class="teams">
-			<h1 class="text-xl font-semibold">{Description}, {startDate}</h1>
-			<div class="inside">
-				<div class="single">
-					<img src={image1} alt="" />
-					<h1 class="text">
-						{team1}
-					</h1>
-				</div>
+<slot {Description} {id} {startDate} {image1} {team1} {bettors} {finished}>
+	{#if finished === 'false'}
+		{#if something()}
+			<div {id} class="games" transition:fly={{ x: 100, duration: 200 }}>
+				<div class="teams">
+					<h1 class="text-xl font-semibold">{Description}, {startDate}</h1>
+					<div class="inside">
+						<div class="single">
+							<img src={image1} alt="" />
+							<h1 class="text">
+								{team1}
+							</h1>
+						</div>
 
-				<div class="placeBet" transition:fly={{ x: 35, duration: 100 }}>
-					<form on:submit|preventDefault={() => addTeamOne(id, team1)}>
-						<label for="">Bet amount:</label>
-						<input type="text" bind:value={betAmount} />
-						<button type="submit">Place Bet</button>
-					</form>
+						<div class="placeBet" transition:fly={{ x: 35, duration: 100 }}>
+							<form on:submit|preventDefault={() => addTeamOne(id, team1)}>
+								<label for="">Bet amount:</label>
+								<input type="text" bind:value={betAmount} />
+								<button type="submit">Place Bet</button>
+							</form>
+						</div>
+					</div>
+
+					<hr />
+					<div class="inside">
+						<div class="single">
+							<img src={image2} alt="" />
+							<h1 class="text">
+								{team2}
+							</h1>
+						</div>
+
+						<div class="placeBet" transition:fly={{ x: 35, duration: 100 }}>
+							<form on:submit|preventDefault={() => addTeamTwo(id, team1)}>
+								<label for="">Bet amount:</label>
+								<input type="text" bind:value={betAmount2} />
+								<button type="submit">Place Bet</button>
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
-
-			<hr />
-			<div class="inside">
-				<div class="single">
-					<img src={image2} alt="" />
-					<h1 class="text">
-						{team2}
-					</h1>
-				</div>
-
-				<div class="placeBet" transition:fly={{ x: 35, duration: 100 }}>
-					<form on:submit|preventDefault={() => addTeamTwo(id, team1)}>
-						<label for="">Bet amount:</label>
-						<input type="text" bind:value={betAmount2} />
-						<button type="submit">Place Bet</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+		{:else}
+			<p>fuck</p>
+		{/if}
+	{/if}
 </slot>
 
 <style>

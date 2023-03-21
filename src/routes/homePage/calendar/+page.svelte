@@ -5,18 +5,33 @@
 </script>
 
 <section class="background">
-	{#await games then games}
-		<div class="container">
-			{#each games as { Description, id, startDate, image1, team1 }, i}
-				<Card {Description} {id} {startDate} {image1} {team1} />
-			{/each}
-		</div>
-	{/await}
+	{#if currentUser}
+		{#await games then games}
+			<div class="container">
+				{#each games as { Description, id, startDate, image1, team1, bettors, finished }, i}
+					<Card
+						currentUser={$currentUser}
+						{Description}
+						{id}
+						{startDate}
+						{image1}
+						{team1}
+						{bettors}
+						{finished}
+					/>
+				{/each}
+			</div>
+		{/await}
+	{/if}
 </section>
 
 <style>
+	:global(html) {
+		background-color: #000f24;
+	}
 	.background {
 		background-color: #000f24;
+		height: 100%;
 	}
 	.container {
 		display: flex;
