@@ -21,7 +21,8 @@
 	});
 	let something = () => {
 		try {
-			if (typeof bettors[currentUser.uid] != 'undefined') {
+			if (typeof bettors[currentUser.uid] == 'undefined') {
+				console.log(bettors[currentUser.uid]);
 				return true;
 			} else {
 				return false;
@@ -91,6 +92,7 @@
 
 <slot {Description} {id} {startDate} {image1} {team1} {bettors} {finished}>
 	{#if finished === 'false'}
+		{console.log(something())}
 		{#if something()}
 			<div {id} class="games" transition:fly={{ x: 100, duration: 200 }}>
 				<div class="teams">
@@ -131,8 +133,6 @@
 					</div>
 				</div>
 			</div>
-		{:else}
-			<p>fuck</p>
 		{/if}
 	{/if}
 </slot>
