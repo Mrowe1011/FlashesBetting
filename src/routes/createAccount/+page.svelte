@@ -32,10 +32,7 @@
 
 <div class="everything">
 	<div class="login">
-		<h1
-			class="text-xl font-semibold mb-5
-		"
-		>
+		<h1 class="text-xl font-semibold mb-5">
 			Let's get to know each other!
 		</h1>
 		<form on:submit|preventDefault={onSubmit}>
@@ -49,34 +46,28 @@
 			</div>
 			<div>
 				<label for="name">Password</label>
-				<input bind:value={password} type="password" id="password" name="password" />
+				<input bind:value={password} type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/>
 				<div>
 					<label for="name">Retype Password</label>
 					<input bind:value={password2} type="password" id="password2" name="password2" />
 				</div>
 			</div>
-			{#if Fname != ''}
-				{#if email != ''}
-					{#if password != ''}
-						{#if password2 === password}
-							{#if password === password2}
-								<br />
-								<button class="stuff" id="submit" type="submit">Submit</button>
-							{:else}
-								<br />
-							{/if}
-						{:else}
-							<p>Passwords do not match!</p>
-						{/if}
-					{:else}
-						<p>Lets try a strong password!</p>
-					{/if}
+
+			{#if password2 === password && password !==null}
+				<br />
+				<button class="stuff" id="submit" type="submit">Submit</button>
 				{:else}
-					<p>How about an email?</p>
-				{/if}
-			{:else}
-				<p>Lets start with a username!</p>
+				<p>Passwords do not match!</p>
 			{/if}
+
+			<div id="message">
+				<h3>Password must contain the following:</h3>
+				<p id="letter" class="rules">A <b>lowercase</b> letter</p>
+				<p id="capital" class="rules">A <b>capital (uppercase)</b> letter</p>
+				<p id="number" class="rules">A <b>number</b></p>
+				<p id="length" class="rules">Minimum <b>8 characters</b></p>
+			</div>
+
 		</form>
 	</div>
 </div>
@@ -107,7 +98,7 @@
 		justify-content: space-evenly;
 		font-weight: lighter;
 		border-radius: 15px;
-		height: 47%;
+		height: 75%;
 		width: 25%;
 		padding: 3%;
 		box-shadow: 0px 0px 2em #00275ad7;
@@ -122,6 +113,13 @@
 	@media only screen and (max-width: 800px) {
 		.login {
 			height: 50%;
+			width: 70%;
+		}
+	}
+
+	@media only screen and (max-width: 480px) {
+		.login {
+			height: 70%;
 			width: 70%;
 		}
 	}
