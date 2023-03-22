@@ -58,6 +58,7 @@
 			);
 			updateDoc(doc(db, 'users', currentUser.uid), { points: increment(-betAmount) }).then(() => {
 				alert('Bet placed!');
+				location.reload();
 			});
 		} else if (typeof betAmount === 'string') {
 			alert('input should be a number');
@@ -72,7 +73,7 @@
 				{
 					bettors: {
 						[currentUser.uid]: {
-							betAmount: betAmount,
+							betAmount: betAmount2,
 							team: 'Kent State'
 						}
 					}
@@ -85,9 +86,11 @@
 				{ activeBets: { ['game ' + id]: { id, team1: 'Kent State', betAmount2 } } },
 				{ merge: true }
 			);
-			updateDoc(doc(db, 'users', currentUser.uid), { points: increment(-betAmount2) });
-			alert('Bet placed!');
-		} else if (typeof betAmount === 'string') {
+			updateDoc(doc(db, 'users', currentUser.uid), { points: increment(-betAmount2) }).then(() => {
+				alert('Bet placed!');
+				location.reload();
+			});
+		} else if (typeof betAmount2 === 'string') {
 			alert('input should be a number');
 		} else {
 			alert("You don't have enough points!");

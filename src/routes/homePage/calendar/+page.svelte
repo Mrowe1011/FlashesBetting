@@ -26,9 +26,8 @@
 </section>
 
 <style>
-	.background {
+	:global(html) {
 		background-color: #000f24;
-		height: 100%;
 	}
 	.container {
 		display: flex;
