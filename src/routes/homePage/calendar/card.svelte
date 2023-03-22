@@ -16,13 +16,14 @@
 	export let currentUser;
 	import { fly } from 'svelte/transition';
 	let profile;
+	// Get live updates to profile
 	$: profile = onSnapshot(doc(db, 'users', currentUser.uid), (doc) => {
 		profile = doc.data();
 	});
 	let something = () => {
+		// Have to use try otherwise browser doesn't like seeing undefined
 		try {
 			if (typeof bettors[currentUser.uid] == 'undefined') {
-				console.log(bettors[currentUser.uid]);
 				return true;
 			} else {
 				return false;
@@ -33,8 +34,10 @@
 	};
 
 	const addTeamOne = (id, team1) => {
+		// make sure that we have enough points
 		if (profile.points >= betAmount) {
 			setDoc(
+				// add to Games -> Game ID
 				doc(db, 'Games', String(id)),
 				{
 					bettors: {
@@ -43,17 +46,19 @@
 							team: team1
 						}
 					}
-				},
+				}, // Need merge true otherwise it overwrites everything
 				{ merge: true }
 			);
 
 			setDoc(
+				// update user profile with the new bet
 				doc(db, 'users', currentUser.uid),
 				{ activeBets: { ['game ' + id]: { id, team1, betAmount } } },
 				{ merge: true }
 			);
-			updateDoc(doc(db, 'users', currentUser.uid), { points: increment(-betAmount) });
-			alert('Bet placed!');
+			updateDoc(doc(db, 'users', currentUser.uid), { points: increment(-betAmount) }).then(() => {
+				alert('Bet placed!');
+			});
 		} else if (typeof betAmount === 'string') {
 			alert('input should be a number');
 		} else {
@@ -92,7 +97,6 @@
 
 <slot {Description} {id} {startDate} {image1} {team1} {bettors} {finished}>
 	{#if finished === 'false'}
-		{console.log(something())}
 		{#if something()}
 			<div {id} class="games" transition:fly={{ x: 100, duration: 200 }}>
 				<div class="teams">

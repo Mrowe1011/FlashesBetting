@@ -26,9 +26,6 @@
 </section>
 
 <style>
-	:global(html) {
-		background-color: #000f24;
-	}
 	.background {
 		background-color: #000f24;
 		height: 100%;

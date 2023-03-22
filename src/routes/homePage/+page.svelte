@@ -83,6 +83,9 @@
 </section>
 
 <style>
+	:global(html) {
+		background-color: #000f24;
+	}
 	#numbers {
 		text-align: center;
 	}
