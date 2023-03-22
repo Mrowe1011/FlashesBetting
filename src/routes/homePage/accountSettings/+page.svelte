@@ -111,10 +111,12 @@
 			</div>
 		  </div>
 	  
-		  <div class="mb-6 flex justify-end">
+		  <div class="mb-6 flex justify-center">
+			<div class="flex items-center">
 			<button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" id="deleteAccountButton">
 			  Delete Account
 			</button>
+			</div>
 		  </div>
 		</form>
 		
