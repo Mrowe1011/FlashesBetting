@@ -83,14 +83,15 @@
 		  <!-- Example settings -->
 		  <div class="mb-6">
 			<label class="block font-bold mb-2" for="username">Change {profile.name}'s Username</label>
-			<div class="flex items-center">
-				<form on:submit|preventDefault={submitChangeEmail}>
-					<input class="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="New username" bind:value={Fname}>
+			<form on:submit|preventDefault={submitChangeEmail}>
+				<div class="flex items-center">
+					
+					<input class="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="New username" >
 					<button class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
 						Change
 					</button>
-			  </form>
-			</div>
+				</div>
+			</form>
 		  </div>
 	  
 		  <div class="mb-6">
