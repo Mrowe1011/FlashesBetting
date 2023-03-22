@@ -1,56 +1,75 @@
 <script>
-	import { getDoc, collection, doc, setDoc, updateDoc, increment } from 'firebase/firestore';
+	import { getDoc, doc } from 'firebase/firestore';
 	import { currentUser, db, games } from '../stores/stores';
 	import { fly } from 'svelte/transition';
 	let profile;
 	let activeGamers = [];
 	let currentbet = [];
+
 	async function getProfile() {
 		let querySnapshot = await getDoc(doc(db, 'users', $currentUser.uid));
 		profile = querySnapshot.data();
-		let activeGames = Object.values(profile.activeBets);
-		let activeGamesArray = [];
-		activeGames.forEach((doc) => {
-			activeGamesArray.push(doc.id);
-		});
-		activeGamesArray.forEach((gameID) => {
-			games.forEach((game) => {
-				if (game.id === gameID) {
-					activeGamers.push(game);
-					let gamblers = game.bettors;
-					for (const gambler in gamblers) {
-						if (gambler === $currentUser.email) {
-							currentbet.push(gamblers[gambler]);
-							activeGamers.amount += gamblers[gambler].betAmount;
-						}
-					}
+		for (const activeGames in profile['activeBets']) {
+			let currentID = profile['activeBets'][activeGames]['id'];
+			for (const singleGame in games) {
+				if (games[singleGame]['id'] === currentID) {
+					activeGamers.push(games[singleGame]);
 				}
-			});
-		});
+			}
+		}
 		return activeGamers;
 	}
-
 	let image2 =
 		'https://dxbhsrqyrr690.cloudfront.net/sidearm.nextgen.sites/kentstatesports.com/images/responsive_2020/nav_main.svg';
 	let team2 = 'Kent State';
-	let betAmount = 0;
 </script>
 
 <section class="background">
 	{#await getProfile() then games}
 		<div class="container">
-			{#each games as { Description, id, startDate, image1, team1, amount }, i}
+			{#each games as { Description, id, startDate, image1, team1, amount, bettors, finished, HomeScore, awayScore }, i}
 				<div {id} class="games" transition:fly={{ x: 100, duration: 100 + i * 100 }}>
 					<div class="teams">
 						<h1 class="text-xl font-semibold">{Description}, {startDate}</h1>
 						<div class="single">
 							<div class="team">
-								<img src={image1} alt="" />
-								<h1 class="text">
-									{currentbet[i].team}
-								</h1>
+								{#if bettors[$currentUser.uid]['team'] == team1}
+									<img src={image1} alt="" />
+									<h1 class="text">{bettors[$currentUser.uid]['team']}</h1>
+								{:else}
+									<img src={image2} alt="" />
+									<h2 class="text">{team2}</h2>
+								{/if}
 							</div>
-							<h1 class="text font-semibold">Current Bet: {currentbet[i].betAmount}</h1>
+							{#if finished == 'true'}
+								{#if bettors[$currentUser.uid]['outcome'] == 'Winner'}
+									<div class="gameinfo">
+										<div id="numbers">
+											<h1 class="font-semibold" id="finalscore">Final Score:</h1>
+											<h1 class="text font-semibold">{HomeScore}</h1>
+											<h1 class="text font-semibold">{awayScore}</h1>
+										</div>
+										<h1 class="text font-semibold">
+											Points won: {bettors[$currentUser.uid]['amountWon']}
+										</h1>
+									</div>
+								{:else}
+									<div class="gameinfo">
+										<div id="numbers">
+											<h1 class="font-semibold" id="finalscore">Final Score:</h1>
+											<h1 class="text font-semibold">{HomeScore}</h1>
+											<h1 class="text font-semibold">{awayScore}</h1>
+										</div>
+										<h1 class="text font-semibold">
+											Points Lost: {bettors[$currentUser.uid]['amountWon']}
+										</h1>
+									</div>
+								{/if}
+							{:else}
+								<h1 class="text font-semibold">
+									Current Bet: {bettors[$currentUser.uid]['betAmount']}
+								</h1>
+							{/if}
 						</div>
 						<div />
 						<div />
@@ -64,6 +83,21 @@
 </section>
 
 <style>
+	:global(html) {
+		background-color: #000f24;
+	}
+	#numbers {
+		text-align: center;
+	}
+	#finalscore {
+		white-space: nowrap;
+	}
+	.gameinfo {
+		display: flex;
+		margin-top: auto;
+		margin-bottom: auto;
+		padding-right: 3%;
+	}
 	.text {
 		margin-top: auto;
 		margin-bottom: auto;
@@ -75,7 +109,7 @@
 	}
 	.background {
 		background-color: #000f24;
-		height: 100vh;
+		height: 100%;
 	}
 	.container {
 		display: flex;

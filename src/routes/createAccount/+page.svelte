@@ -95,7 +95,7 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		background-image: url('../images/QQKIWTGKB5E2NBBZI5MB4GXEDM.jpg');
+		background-image: url('/images/QQKIWTGKB5E2NBBZI5MB4GXEDM.jpg');
 		background-size: cover;
 		background-position: center;
 	}
