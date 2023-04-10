@@ -1,14 +1,10 @@
 <script>
 	import { currentUser, db } from '../../stores/stores';
 	import { getDoc, doc, updateDoc } from 'firebase/firestore';
-	import { deleteUser, updateEmail } from 'firebase/auth';
+	import { deleteUser, updateEmail } from 'firebase/auth';	//import { onMount } from 'svelte';
+  
+  
 
-
-	function confirmDelete() {
-  // display the dialog box
-  	const dialogBox = document.getElementById('delete-dialog');
-  	dialogBox.classList.remove('hidden');
-}
 
 	
 	let Fname;
@@ -83,7 +79,7 @@
 		  <!-- Example settings -->
 		  <div class="mb-6">
 			<label class="block font-bold mb-2" for="username">Change {profile.name}'s Username</label>
-			<form on:submit|preventDefault={submitChangeEmail}>
+			<form on:submit|preventDefault={submitChangeUsername}>
 				<div class="flex items-center">
 					
 					<input class="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="New username" >
@@ -96,12 +92,14 @@
 	  
 		  <div class="mb-6">
 			<label class="block font-bold mb-2" for="email">Change Email</label>
+			<form on:submit|preventDefault={submitChangeEmail}>
 			<div class="flex items-center">
 			  <input class="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" placeholder="New email">
-			  <button class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+			  <button class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
 				Change
 			  </button>
 			</div>
+			</form>
 		  </div>
 	  
 		  <div class="mb-6">
@@ -113,29 +111,17 @@
 	  
 		  <div class="mb-6 flex justify-center">
 			<div class="flex items-center">
-			<button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" id="deleteAccountButton">
-			  Delete Account
-			</button>
+				<form on:submit|preventDefault={deleteAccount}>
+				<button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" id="deleteAccountButton">
+				Delete Account
+				</button>
+				</form>
 			</div>
 		  </div>
 		</form>
 		
-		<!-- Confirmation dialog box -->
-		<div class="fixed inset-0 bg-gray-700 bg-opacity-75 flex items-center justify-center" id="deleteAccountModal" style="display: none">
-		  <div class="bg-white rounded-lg shadow-lg p-6">
-			<p class="text-lg font-semibold mb-4">Are you sure you want to delete your account?</p>
-			<div class="flex justify-end">
-			  <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2 focus:outline-none focus:shadow-outline" type="button" id="cancelDeleteButton">
-				Cancel
-			  </button>
-			  <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" id="confirmDeleteButton">
-				Delete
-			  </button>
-			</div>
-		  </div>
-		</div>
-	  </div>
-	  
+		
+	</div>
 	  {/await}
 
 </div>
