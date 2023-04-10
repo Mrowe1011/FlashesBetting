@@ -37,42 +37,10 @@
 </script>
 
 <div class="background">
-	{#await getData() then profile}
-		<div class="container">
-			<h1 class="text-xl font-semibold">Account</h1>
-			<h2>Profile</h2>
-			<p>This information will be displayed publicly.</p>
-			<div>
-				<h1>Username: {profile.name}</h1>
-				<form on:submit|preventDefault={submitChangeUsername}>
-					<div>
-						<label for="name">New username:</label>
-						<input type="text" id="name" name="name" bind:value={Fname} />
-					</div>
-					<button type="submit">Submit</button>
-				</form>
-			</div>
-			<h3>The danger zone! (must sign in recently)</h3>
-			<div>
-				<h1>Email: {$currentUser.email}</h1>
-				<form on:submit|preventDefault={submitChangeEmail}>
-					<div>
-						<label for="name">New email:</label>
-						<input type="text" id="name" name="name" bind:value={email} />
-					</div>
-					<button type="submit">Submit</button>
-				</form>
-			</div>
-			<div>
-				<form on:submit|preventDefault={deleteAccount}>
-					<button type="submit">Delete Account ☠</button>
-				</form>
-			</div>
-		</div>
-	{/await}
+
 	{#await getData() then profile}
 
-	<div class="container mx-auto my-8">
+	<div class="container mx-auto mt-0 my-8">
 		<form class="max-w-lg mx-auto">
 		  <h1 class="text-3xl font-bold mb-6">Settings</h1>
 	  
@@ -144,5 +112,7 @@
 	.background {
 		background-color: #000f24;
 		height: 100vh;
+		padding:0%;
+		margin: 0%;
 	}
 </style>
