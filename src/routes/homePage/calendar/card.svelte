@@ -15,6 +15,7 @@
 	export let betAmount2 = 0;
 	export let currentUser;
 	import { fly } from 'svelte/transition';
+	console.log(bettors);
 	let profile;
 	// Get live updates to profile
 	$: profile = onSnapshot(doc(db, 'users', currentUser.uid), (doc) => {
@@ -22,6 +23,7 @@
 	});
 	let something = () => {
 		// Have to use try otherwise browser doesn't like seeing undefined
+
 		try {
 			if (typeof bettors[currentUser.uid] == 'undefined') {
 				return true;
@@ -29,6 +31,7 @@
 				return false;
 			}
 		} catch {
+			console.log('wtf');
 			return false;
 		}
 	};

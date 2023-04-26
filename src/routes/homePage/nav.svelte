@@ -35,6 +35,13 @@
 			on:click={() => {
 				page = 2;
 			}}
+			href="/homePage/previousGames">Finished Games</a
+		>
+		<a
+			class:selected={page == 3}
+			on:click={() => {
+				page = 3;
+			}}
 			href="/homePage/leaderboard">Leaderboard</a
 		>
 	</div>

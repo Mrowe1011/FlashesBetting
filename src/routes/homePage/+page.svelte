@@ -27,6 +27,16 @@
 <section class="background">
 	{#await getProfile() then games}
 		<div class="container">
+			{#if games.length == 0}
+				<div class="betongames games">
+					<h1 class="text-xl font-semibold">
+						You dont have any active bets yet. Bet on some games <a
+							class="text-xl font-semibold"
+							href="/homePage/calendar">here!</a
+						>
+					</h1>
+				</div>
+			{/if}
 			{#each games as { Description, id, startDate, image1, team1, amount, bettors, finished, HomeScore, awayScore }, i}
 				<div {id} class="games" transition:fly={{ x: 100, duration: 100 + i * 100 }}>
 					<div class="teams">
@@ -85,6 +95,10 @@
 <style>
 	:global(html) {
 		background-color: #000f24;
+	}
+	.betongames {
+		background-color: white;
+		padding: 2%;
 	}
 	#numbers {
 		text-align: center;

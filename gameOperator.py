@@ -6,17 +6,17 @@ cred = credentials.Certificate("./flashesbetting-firebase-adminsdk-6scmv-9326bfb
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 #erase static values to use inputs
-game = '6'#input('Which game? ')
+game = '5'#input('Which game? ')
 winner = "Kent State"#input('Who won? ')
-away = '2'#input('Away score? ')
-home= '5'#input('Home score? ')
+away = '7'#input('Away score? ')
+home= '12'#input('Home score? ')
 
 #get firebase game doc
 doc_ref = db.collection("Games").document(game)
 doc = doc_ref.get()
 #end firebase game doc
 
-# Create the point pools -> Maybe use .has instead of loops?
+# Create the point pools
 if doc.exists:
     stuff = doc.to_dict()
     pool=0
@@ -36,14 +36,14 @@ if doc.exists:
         if stuff['bettors'][person]['team'] == winner:
             odds = betAmount / winnersPool
             amountWon = round(odds * pool, 0) 
+            # Increment points won and add win to database
             doc_games.set({'bettors':{person: {'outcome': 'Winner'}}}, merge = True)
-            doc_games.set({'bettors':{person: {'amountWon': odds}}}, merge = True)
+            doc_games.set({'bettors':{person: {'amountWon': amountWon}}}, merge = True)
             #calculate points based on pools
             print(person, amountWon)
             doc_points.update({'points': firestore.Increment(amountWon)})
-            # Increment points won and add win to database
             doc_points.set({'activeBets':{gameProfile: {'outcome': 'Winner'}}}, merge = True)
-            doc_points.set({'activeBets':{gameProfile: {'outcomeAmount': odds}}}, merge = True)
+            doc_points.set({'activeBets':{gameProfile: {'outcomeAmount': amountWon}}}, merge = True)
         else:
             print(person, -betAmount)
             doc_points.set({'activeBets':{gameProfile: {'outcome': 'Loser'}}}, merge = True)
